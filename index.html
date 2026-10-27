@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptiCloud AI | GCP Cost & Performance Engine</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap');
+        body {
+            background: #090d16;
+            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 40px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+        
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            color: #38bdf8;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .kpi-card {
+            background: rgba(17, 24, 39, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .kpi-title {
+            font-size: 12px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2dd4bf;
+        }
+        
+        .rec-card {
+            background: rgba(17, 24, 39, 0.7);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .rec-info h4 {
+            margin: 0 0 6px 0;
+            font-size: 16px;
+            color: #f8fafc;
+        }
+        
+        .rec-info p {
+            margin: 0;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+        
+        .badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        
+        .savings {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2dd4bf;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo">⚡ OptiCloud AI Engine (GCP)</div>
+            <div style="font-size: 13px; color: #94a3b8;">Status: <span style="color:#2dd4bf;">Active Scan</span></div>
+        </div>
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-title">Cloud Provider</div>
+                <div class="kpi-value" style="font-size: 20px; color:#38bdf8; margin-top:5px;">GCP</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Resources Analyzed</div>
+                <div class="kpi-value" style="color:#f8fafc;">{{ resources | length }}</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Potential Monthly Savings</div>
+                <div class="kpi-value">${{ total_savings }}</div>
+            </div>
+        </div>
+
+        <h3 style="font-size: 18px; margin-bottom: 16px;">Automated Recommendations</h3>
+
+        {% for res in resources %}
+        <div class="rec-card">
+            <div class="rec-info">
+                <div style="margin-bottom: 6px;"><span class="badge">{{ res.recommendation }}</span></div>
+                <h4>{{ res.name }} <span style="font-weight: normal; color: #94a3b8; font-size: 13px;">({{ res.type }})</span></h4>
+                <p>Zone: {{ res.zone }} | Current Status: {{ res.status }}</p>
+            </div>
+            <div class="savings">+{{ res.savings }} <span style="font-size: 11px; color:#94a3b8; display:block;">/ month</span></div>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>
